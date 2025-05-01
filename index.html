@@ -1,0 +1,2130 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Min Myat Oo - NetSuite Developer</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap");
+      @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&display=swap");
+
+      :root {
+        /* Modern Professional Color Scheme */
+        --primary: #3949ab; /* Indigo */
+        --primary-light: #6f74dd;
+        --primary-dark: #00227b;
+        --secondary: #00897b; /* Teal */
+        --light: #f9fafc;
+        --dark: #263238;
+        --text: #37474f;
+        --text-light: #607d8b;
+        --border: #e1e8ed;
+        --success: #43a047;
+        --accent: #ff6d00;
+        --bg-gradient: linear-gradient(135deg, #3949ab 0%, #283593 100%);
+        --card-bg: #ffffff;
+        --section-bg: #f5f7fa;
+        --highlight-bg: rgba(57, 73, 171, 0.08);
+        --highlight-border: #3949ab;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+      }
+
+      body {
+        background-color: #f8fafc;
+        color: var(--text);
+        line-height: 1.6;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem;
+      }
+
+      /* Header Section */
+      .header {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: 3rem 1rem;
+        position: relative;
+        overflow: hidden;
+        background: var(--bg-gradient);
+        color: white;
+        border-radius: 16px;
+        box-shadow: 0 10px 30px rgba(79, 70, 229, 0.2);
+        margin-bottom: 2rem;
+      }
+
+      .header-content {
+        position: relative;
+        z-index: 1;
+        max-width: 800px;
+      }
+
+      .header::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMjAwIj48cGF0aCBmaWxsPSJyZ2JhKDI1NSwgMjU1LCAyNTUsIDAuMSkiIGQ9Ik0wIDBoMjAwdjIwMEgweiIvPjxwYXRoIGZpbGw9InJnYmEoMjU1LCAyNTUsIDI1NSwgMC4wOCkiIGQ9Ik0wIDQwaDIwMHY0MEgwem0wIDgwaDIwMHY0MEgweiIvPjwvc3ZnPg==");
+        opacity: 0.1;
+      }
+
+      .profile-pic {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        border: 4px solid rgba(255, 255, 255, 0.3);
+        margin: 0 auto 1.5rem;
+        background-image: url("/api/placeholder/150/150");
+        background-size: cover;
+        background-position: center;
+        position: relative;
+        overflow: hidden;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      }
+
+      h1 {
+        font-family: "Montserrat", sans-serif;
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+        letter-spacing: 1px;
+      }
+
+      .title {
+        font-size: 1.2rem;
+        font-weight: 400;
+        letter-spacing: 1px;
+        opacity: 0.9;
+        margin-bottom: 1.5rem;
+      }
+
+      .header-tagline {
+        font-size: 1rem;
+        opacity: 0.95;
+        max-width: 700px;
+        margin: 0 auto;
+        line-height: 1.7;
+      }
+
+      /* Contact Bar */
+      .contact-bar {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        justify-content: center;
+        margin-top: 2rem;
+      }
+
+      .contact-item {
+        display: flex;
+        align-items: center;
+        background-color: rgba(255, 255, 255, 0.15);
+        border-radius: 50px;
+        padding: 0.5rem 1.2rem;
+        transition: all 0.3s ease;
+      }
+
+      .contact-item:hover {
+        background-color: rgba(255, 255, 255, 0.25);
+        transform: translateY(-2px);
+      }
+
+      .contact-item i {
+        margin-right: 0.5rem;
+        font-size: 0.9rem;
+      }
+
+      /* Main Content Layout */
+      .content {
+        display: grid;
+        grid-template-columns: 3fr 2fr;
+        gap: 2rem;
+      }
+
+      /* Card Design */
+      .card {
+        background-color: var(--card-bg);
+        border-radius: 12px;
+        padding: 2rem;
+        margin-bottom: 2rem;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+      }
+
+      /* Section Headers */
+      .section-header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 1.5rem;
+        position: relative;
+      }
+
+      .section-header h2 {
+        font-family: "Montserrat", sans-serif;
+        font-size: 1.3rem;
+        font-weight: 600;
+        color: var(--primary-dark);
+        margin-left: 0.5rem;
+      }
+
+      .section-icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--primary);
+        color: white;
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        font-size: 0.9rem;
+        box-shadow: 0 4px 10px rgba(79, 70, 229, 0.2);
+      }
+
+      /* Experience Section */
+      .timeline {
+        position: relative;
+        padding-left: 1.5rem;
+      }
+
+      .timeline::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 10px;
+        bottom: 0;
+        width: 3px;
+        background: linear-gradient(
+          to bottom,
+          var(--primary) 0%,
+          var(--primary-light) 100%
+        );
+        border-radius: 3px;
+        opacity: 0.3;
+      }
+
+      .job {
+        position: relative;
+        margin-bottom: 2rem;
+        padding-bottom: 1rem;
+      }
+
+      .job:last-child {
+        margin-bottom: 0;
+        padding-bottom: 0;
+      }
+
+      .job::before {
+        content: "";
+        position: absolute;
+        left: -1.5rem;
+        top: 6px;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: var(--primary);
+        box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
+        z-index: 1;
+      }
+
+      .job:first-child::before {
+        background: var(--accent);
+      }
+
+      .job-header {
+        margin-bottom: 0.8rem;
+      }
+
+      .job-title {
+        font-weight: 600;
+        font-size: 1.1rem;
+        color: var(--dark);
+        margin-bottom: 0.3rem;
+      }
+
+      .job:first-child .job-title {
+        color: var(--primary-dark);
+        font-weight: 700;
+      }
+
+      .job-company {
+        font-weight: 500;
+        color: var(--primary);
+        margin-bottom: 0.3rem;
+      }
+
+      .job-period {
+        font-size: 0.85rem;
+        color: var(--text-light);
+        display: flex;
+        align-items: center;
+      }
+
+      .job-period i {
+        margin-right: 0.4rem;
+        font-size: 0.8rem;
+      }
+
+      .job-details {
+        list-style-type: none;
+      }
+
+      .job-details li {
+        position: relative;
+        padding-left: 1.2rem;
+        margin-bottom: 0.5rem;
+        font-size: 0.95rem;
+      }
+
+      .job-details li::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0.7rem;
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background-color: var(--primary-light);
+      }
+
+      /* Skills Section */
+      .skills-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.5rem;
+      }
+
+      .skill-category {
+        margin-bottom: 1.5rem;
+      }
+
+      .skill-title {
+        font-weight: 600;
+        margin-bottom: 0.8rem;
+        color: var(--dark);
+        display: flex;
+        align-items: center;
+      }
+
+      .skill-title i {
+        color: var(--primary);
+        margin-right: 0.5rem;
+        font-size: 0.9rem;
+      }
+
+      .skill-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+
+      .skill-tag {
+        display: inline-block;
+        background-color: rgba(79, 70, 229, 0.08);
+        color: var(--primary);
+        padding: 0.4rem 0.8rem;
+        border-radius: 6px;
+        font-size: 0.85rem;
+        transition: all 0.2s ease;
+        border: 1px solid rgba(79, 70, 229, 0.1);
+      }
+
+      .skill-tag:hover {
+        background-color: var(--primary);
+        color: white;
+        transform: translateY(-2px);
+        box-shadow: 0 3px 10px rgba(79, 70, 229, 0.2);
+      }
+
+      /* Progress Bars */
+      .skill-bar-container {
+        margin-top: 1.5rem;
+      }
+
+      .skill-bar {
+        display: flex;
+        align-items: center;
+        margin-bottom: 1rem;
+      }
+
+      .skill-name {
+        width: 100px;
+        font-weight: 500;
+        font-size: 0.9rem;
+      }
+
+      .progress-bar {
+        flex: 1;
+        height: 8px;
+        background-color: #e2e8f0;
+        border-radius: 4px;
+        overflow: hidden;
+      }
+
+      .progress {
+        height: 100%;
+        background: var(--bg-gradient);
+        border-radius: 4px;
+        position: relative;
+      }
+
+      .progress::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(
+          90deg,
+          rgba(255, 255, 255, 0) 0%,
+          rgba(255, 255, 255, 0.1) 50%,
+          rgba(255, 255, 255, 0) 100%
+        );
+        animation: shine 1.5s infinite linear;
+      }
+
+      @keyframes shine {
+        0% {
+          transform: translateX(-100%);
+        }
+        100% {
+          transform: translateX(100%);
+        }
+      }
+
+      .skill-level {
+        width: 40px;
+        text-align: right;
+        font-size: 0.8rem;
+        color: var(--primary);
+        font-weight: 600;
+        padding-left: 0.5rem;
+      }
+
+      /* Certification Section */
+      .cert-item {
+        display: flex;
+        align-items: center;
+        background-color: var(--section-bg);
+        padding: 1rem;
+        border-radius: 8px;
+        margin-bottom: 1rem;
+        transition: all 0.3s ease;
+        border-left: 3px solid var(--primary);
+      }
+
+      .cert-item:hover {
+        transform: translateX(5px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      }
+
+      .cert-icon {
+        background: var(--primary);
+        color: white;
+        width: 36px;
+        height: 36px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 8px;
+        margin-right: 1rem;
+        font-size: 0.9rem;
+      }
+
+      .cert-details {
+        flex: 1;
+      }
+
+      .cert-name {
+        font-weight: 600;
+        color: var(--dark);
+        font-size: 0.95rem;
+      }
+
+      .cert-issuer {
+        color: var(--text-light);
+        font-size: 0.8rem;
+      }
+
+      /* Education Section */
+      .education-item {
+        background-color: var(--section-bg);
+        border-radius: 8px;
+        padding: 1.2rem;
+        margin-bottom: 1rem;
+        border-left: 3px solid var(--primary);
+        transition: all 0.3s ease;
+      }
+
+      .education-item:hover {
+        transform: translateX(5px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      }
+
+      .education-title {
+        font-weight: 600;
+        color: var(--dark);
+        font-size: 1rem;
+        margin-bottom: 0.3rem;
+      }
+
+      .education-degree {
+        font-weight: 500;
+        color: var(--primary);
+        margin-bottom: 0.3rem;
+        font-size: 0.9rem;
+      }
+
+      .education-period {
+        color: var(--text-light);
+        font-size: 0.8rem;
+      }
+
+      /* Languages Section */
+      .lang-item {
+        margin-bottom: 1rem;
+      }
+
+      .lang-name {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 0.5rem;
+      }
+
+      .language-flag {
+        margin-right: 0.5rem;
+      }
+
+      .lang-level {
+        font-size: 0.8rem;
+        color: var(--text-light);
+      }
+
+      /* Social Links */
+      .social-links {
+        display: flex;
+        gap: 0.8rem;
+        flex-wrap: wrap;
+        margin-top: 1rem;
+      }
+
+      .social-link {
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        color: var(--text);
+        background-color: var(--section-bg);
+        padding: 0.6rem 1rem;
+        border-radius: 8px;
+        font-size: 0.85rem;
+        transition: all 0.3s ease;
+        border: 1px solid var(--border);
+      }
+
+      .social-link i {
+        margin-right: 0.5rem;
+        color: var(--primary);
+        font-size: 1rem;
+      }
+
+      .social-link:hover {
+        background-color: var(--primary);
+        color: white;
+        transform: translateY(-3px);
+        box-shadow: 0 4px 12px rgba(79, 70, 229, 0.2);
+        border-color: var(--primary);
+      }
+
+      .social-link:hover i {
+        color: white;
+      }
+
+      /* References Section */
+      .references {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+      }
+
+      .reference {
+        background-color: var(--section-bg);
+        padding: 1.2rem;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+        border: 1px solid var(--border);
+      }
+
+      .reference:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+        border-color: var(--primary-light);
+      }
+
+      .reference-name {
+        font-weight: 600;
+        color: var(--dark);
+        font-size: 1rem;
+        margin-bottom: 0.3rem;
+      }
+
+      .reference-position {
+        color: var(--primary);
+        font-weight: 500;
+        font-size: 0.9rem;
+        margin-bottom: 0.2rem;
+      }
+
+      .reference-company {
+        color: var(--text);
+        font-size: 0.85rem;
+        margin-bottom: 0.8rem;
+      }
+
+      .reference-contact {
+        color: var(--text-light);
+        font-size: 0.8rem;
+        display: flex;
+        align-items: center;
+        margin-top: 0.4rem;
+      }
+
+      .reference-contact i {
+        color: var(--primary);
+        margin-right: 0.5rem;
+        width: 16px;
+      }
+
+      /* Interests Section */
+      .interests {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1rem;
+        margin-top: 1rem;
+      }
+
+      .interest-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-color: var(--section-bg);
+        padding: 1.2rem 0.8rem;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+        border: 1px solid var(--border);
+      }
+
+      .interest-item:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+        background-color: var(--primary);
+        color: white;
+        border-color: var(--primary);
+      }
+
+      .interest-icon {
+        width: 45px;
+        height: 45px;
+        background-color: rgba(79, 70, 229, 0.1);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+        margin-bottom: 0.8rem;
+        color: var(--primary);
+        font-size: 1.2rem;
+        transition: all 0.3s ease;
+      }
+
+      .interest-item:hover .interest-icon {
+        background-color: white;
+        transform: scale(1.1);
+      }
+
+      .interest-name {
+        font-size: 0.9rem;
+        font-weight: 500;
+      }
+
+      /* Highlight Box */
+      .highlight-box {
+        background: linear-gradient(
+          135deg,
+          rgba(57, 73, 171, 0.05) 0%,
+          rgba(40, 53, 147, 0.1) 100%
+        );
+        border-radius: 8px;
+        padding: 1.5rem;
+        margin: 1.5rem 0;
+        border-left: 4px solid var(--primary);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .highlight-box::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMjAwIj48cGF0aCBmaWxsPSJyZ2JhKDc5LCA3MCwgMjI5LCAwLjAzKSIgZD0iTTAgMGgyMDB2MjAwSDB6Ii8+PHBhdGggZmlsbD0icmdiYSg3OSwgNzAsIDIyOSwgMC4wNSkiIGQ9Ik0wIDQwaDIwMHY0MEgwem0wIDgwaDIwMHY0MEgweiIvPjwvc3ZnPg==");
+        opacity: 0.5;
+        z-index: 0;
+      }
+
+      .highlight-title {
+        font-weight: 600;
+        color: var(--primary-dark);
+        margin-bottom: 0.8rem;
+        font-size: 1rem;
+        display: flex;
+        align-items: center;
+        position: relative;
+        z-index: 1;
+      }
+
+      .highlight-title i {
+        margin-right: 0.8rem;
+        background: var(--primary);
+        color: white;
+        width: 26px;
+        height: 26px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        font-size: 0.8rem;
+      }
+
+      .highlight-content {
+        font-size: 0.95rem;
+        position: relative;
+        z-index: 1;
+      }
+
+      /* Responsive Design */
+      @media (max-width: 900px) {
+        .content {
+          grid-template-columns: 1fr;
+        }
+
+        .header {
+          padding: 2rem 1rem;
+        }
+
+        h1 {
+          font-size: 2.2rem;
+        }
+
+        .title {
+          font-size: 1.1rem;
+        }
+
+        .container {
+          padding: 1rem;
+        }
+
+        .skills-container {
+          grid-template-columns: 1fr;
+        }
+
+        .references {
+          grid-template-columns: 1fr;
+        }
+
+        .interests {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      @media (max-width: 600px) {
+        .interests {
+          grid-template-columns: 1fr;
+        }
+
+        .skill-bar {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        .skill-name {
+          margin-bottom: 0.5rem;
+        }
+
+        .progress-bar {
+          width: 100%;
+        }
+
+        .skill-level {
+          position: absolute;
+          right: 0;
+          margin-top: -1.5rem;
+        }
+      }
+
+      /* Print Styles */
+      @media print {
+        body {
+          background-color: white;
+        }
+
+        .container {
+          margin: 0;
+          max-width: 100%;
+          padding: 0;
+        }
+
+        .card {
+          box-shadow: none;
+          margin-bottom: 1.5rem;
+          break-inside: avoid;
+        }
+
+        .card:hover {
+          transform: none;
+          box-shadow: none;
+        }
+
+        .header {
+          border-radius: 0;
+          box-shadow: none;
+        }
+
+        .interest-item:hover,
+        .education-item:hover,
+        .reference:hover,
+        .cert-item:hover {
+          transform: none;
+          box-shadow: none;
+          background-color: var(--section-bg);
+          color: var(--text);
+          border-color: var(--border);
+        }
+
+        .interest-item:hover .interest-icon {
+          background-color: rgba(79, 70, 229, 0.1);
+          color: var(--primary);
+          transform: none;
+        }
+
+        .job::before {
+          print-color-adjust: exact;
+          -webkit-print-color-adjust: exact;
+        }
+
+        .timeline::before {
+          print-color-adjust: exact;
+          -webkit-print-color-adjust: exact;
+        }
+
+        .progress {
+          print-color-adjust: exact;
+          -webkit-print-color-adjust: exact;
+        }
+      }
+
+      /* Animation Classes */
+      .animate-fade-in {
+        animation: fadeIn 0.8s ease forwards;
+        opacity: 0;
+      }
+
+      .animate-slide-up {
+        animation: slideUp 0.8s ease forwards;
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      @keyframes slideUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Dark Mode Toggle */
+      .dark-mode-toggle {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background: var(--primary);
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        box-shadow: 0 4px 15px rgba(79, 70, 229, 0.3);
+        z-index: 100;
+        transition: all 0.3s ease;
+      }
+
+      .dark-mode-toggle:hover {
+        transform: scale(1.1);
+      }
+
+      /* Back to Top Button */
+      .back-to-top {
+        position: fixed;
+        bottom: 80px;
+        right: 20px;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background: var(--dark);
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        z-index: 100;
+        transition: all 0.3s ease;
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      .back-to-top.visible {
+        opacity: 1;
+        pointer-events: all;
+      }
+
+      .back-to-top:hover {
+        transform: scale(1.1);
+      }
+
+      /* Modal Styles */
+      .modal {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.5);
+        backdrop-filter: blur(5px);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+
+      .modal.show {
+        opacity: 1;
+        display: block;
+      }
+
+      .modal-content {
+        background-color: var(--card-bg);
+        margin: 10% auto;
+        padding: 2rem;
+        border-radius: 12px;
+        width: 90%;
+        max-width: 400px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        text-align: center;
+        transform: translateY(20px);
+        transition: transform 0.3s ease;
+        position: relative;
+      }
+
+      .modal.show .modal-content {
+        transform: translateY(0);
+      }
+
+      .close-modal {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        color: var(--text-light);
+        font-size: 1.5rem;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+
+      .close-modal:hover {
+        color: var(--primary);
+      }
+
+      #qrcode {
+        margin: 1.5rem auto;
+        width: 200px;
+        height: 200px;
+        background-color: white;
+        padding: 1rem;
+        border-radius: 8px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .modal-text {
+        color: var(--text-light);
+        font-size: 0.9rem;
+        margin-top: 1rem;
+      }
+
+      /* Feature Buttons */
+      .feature-buttons {
+        position: fixed;
+        right: 1.5rem;
+        bottom: 1.5rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.8rem;
+        z-index: 100;
+      }
+
+      .feature-button {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        cursor: pointer;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        transition: all 0.3s ease;
+      }
+
+      .feature-button:hover {
+        transform: scale(1.1);
+      }
+
+      #darkModeToggle {
+        background: var(--primary);
+      }
+
+      #qrCodeButton {
+        background: var(--secondary);
+      }
+
+      #downloadPdfButton {
+        background: var(--accent);
+      }
+
+      #shareButton {
+        background: var(--primary-light);
+      }
+
+      #backToTop {
+        background: var(--dark);
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      #backToTop.visible {
+        opacity: 1;
+        pointer-events: all;
+      }
+
+      /* Share Menu */
+      .share-menu {
+        position: fixed;
+        right: 5rem;
+        bottom: 9.5rem;
+        background: var(--card-bg);
+        border-radius: 12px;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+        padding: 0.8rem 0;
+        width: 180px;
+        z-index: 90;
+        transform: scale(0.8);
+        opacity: 0;
+        transform-origin: bottom right;
+        pointer-events: none;
+        transition: all 0.3s ease;
+      }
+
+      .share-menu.visible {
+        transform: scale(1);
+        opacity: 1;
+        pointer-events: all;
+      }
+
+      .share-option {
+        padding: 0.8rem 1.2rem;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        transition: all 0.2s ease;
+      }
+
+      .share-option:hover {
+        background-color: var(--section-bg);
+      }
+
+      .share-option i {
+        margin-right: 0.8rem;
+        color: var(--primary);
+        width: 20px;
+        text-align: center;
+      }
+
+      /* Toast Notification */
+      .toast {
+        position: fixed;
+        bottom: 2rem;
+        left: 50%;
+        transform: translateX(-50%) translateY(100px);
+        background-color: var(--dark);
+        color: white;
+        padding: 0.8rem 1.5rem;
+        border-radius: 50px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        font-size: 0.9rem;
+        z-index: 1000;
+        opacity: 0;
+        transition: all 0.3s ease;
+      }
+
+      .toast.show {
+        transform: translateX(-50%) translateY(0);
+        opacity: 1;
+      }
+
+      /* Loading Spinner */
+      .loading-spinner {
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        border: 3px solid rgba(255, 255, 255, 0.3);
+        border-radius: 50%;
+        border-top-color: white;
+        animation: spin 1s ease-in-out infinite;
+        margin-right: 10px;
+      }
+
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      /* NetSuite Specific Branding Elements */
+      .netsuite-badge {
+        position: absolute;
+        top: -10px;
+        right: -10px;
+        background: var(--primary);
+        color: white;
+        font-size: 0.7rem;
+        padding: 0.3rem 0.6rem;
+        border-radius: 4px;
+        font-weight: 600;
+        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+        display: flex;
+        align-items: center;
+        z-index: 2;
+      }
+
+      .netsuite-badge i {
+        margin-right: 4px;
+      }
+
+      .oracle-logo {
+        width: 16px;
+        height: 16px;
+        margin-right: 6px;
+        filter: invert(1);
+      }
+
+      /* Company Website Links */
+      .company-website {
+        color: var(--primary);
+        font-size: 0.8rem;
+        margin-left: 0.5rem;
+        transition: all 0.2s ease;
+      }
+
+      .company-website:hover {
+        color: var(--primary-dark);
+        text-decoration: underline;
+      }
+
+      /* Certificate Details */
+      .cert-details {
+        flex: 1;
+      }
+
+      .cert-meta {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 0.3rem;
+        font-size: 0.75rem;
+      }
+
+      .cert-date {
+        color: var(--text-light);
+      }
+
+      .cert-verify {
+        color: var(--primary);
+        text-decoration: none;
+        transition: all 0.2s ease;
+      }
+
+      .cert-verify:hover {
+        text-decoration: underline;
+      }
+
+      /* Version indicator */
+      .version-indicator {
+        position: fixed;
+        bottom: 10px;
+        left: 10px;
+        font-size: 0.75rem;
+        color: var(--text-light);
+        opacity: 0.7;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <!-- Modern Header with Two Column Layout -->
+      <header class="header animate-fade-in">
+        <div class="netsuite-badge" style="background: var(--primary)">
+          <img
+            src="https://cdnjs.cloudflare.com/ajax/libs/simple-icons/6.7.0/oracle.svg"
+            class="oracle-logo"
+            alt="Oracle"
+          />
+          <span>NetSuite Certified</span>
+        </div>
+        <div class="profile-pic"></div>
+        <div class="header-content">
+          <h1>MIN MYAT OO</h1>
+          <div class="title">Oracle NetSuite Developer / Administrator</div>
+          <p class="header-tagline">
+            Innovative NetSuite Technical Architect with extensive expertise in
+            advanced customization, integration, and optimization of cloud-based
+            enterprise systems. Certified NetSuite Consultant skilled in
+            SuiteScript and SuiteQL development, delivering tailored solutions
+            that address complex business requirements.
+          </p>
+
+          <!-- Contact Information Bar -->
+          <div class="contact-bar">
+            <div class="contact-item">
+              <i class="fas fa-map-marker-alt"></i>
+              <div>Singapore</div>
+            </div>
+            <div class="contact-item">
+              <i class="fas fa-phone-alt"></i>
+              <div>+65 8570 3004</div>
+            </div>
+            <div class="contact-item">
+              <i class="fas fa-envelope"></i>
+              <div>mikeminmyatoo@gmail.com</div>
+            </div>
+            <div class="contact-item">
+              <i class="fas fa-globe"></i>
+              <div>minmyatoo.github.io</div>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- Main Content -->
+      <div class="content">
+        <!-- Left Column - Experience and Certifications -->
+        <div class="main-content">
+          <!-- Professional Summary -->
+          <div class="card animate-slide-up" style="animation-delay: 100ms">
+            <div class="section-header">
+              <div class="section-icon"><i class="fas fa-user-circle"></i></div>
+              <h2>Professional Summary</h2>
+            </div>
+            <p>
+              Innovative NetSuite Technical Architect with extensive expertise
+              in advanced customization, integration, and optimization of
+              cloud-based enterprise systems. Certified NetSuite Consultant
+              skilled in SuiteScript and SuiteQL development, delivering
+              tailored solutions that address complex business requirements.
+            </p>
+
+            <div class="highlight-box">
+              <div class="highlight-title">
+                <i class="fas fa-star"></i>Core Competencies
+              </div>
+              <div class="highlight-content">
+                SuiteScript Development • NetSuite Customization • ERP
+                Implementation • API Integration • Business Process Automation •
+                Technical Support • Project Management • User Training
+              </div>
+            </div>
+          </div>
+
+          <!-- Experience Section -->
+          <div class="card animate-slide-up" style="animation-delay: 200ms">
+            <div class="section-header">
+              <div class="section-icon"><i class="fas fa-briefcase"></i></div>
+              <h2>Professional Experience</h2>
+            </div>
+
+            <div class="timeline">
+              <div class="job">
+                <div class="job-header">
+                  <div class="job-title">NetSuite Application Analyst</div>
+                  <div class="job-company">
+                    Nera Telecommunications Ltd
+                    <a
+                      href="https://www.nera.net"
+                      class="company-website"
+                      target="_blank"
+                      ><i class="fas fa-external-link-alt"></i
+                    ></a>
+                  </div>
+                  <div class="job-period">
+                    <i class="far fa-calendar-alt"></i> Jan 2023 - Present |
+                    Singapore
+                  </div>
+                </div>
+                <ul class="job-details">
+                  <li>
+                    Implemented custom NetSuite modules with seamless
+                    integrations across departments
+                  </li>
+                  <li>
+                    Engineered MY E-invoice integration for Malaysia subsidiary
+                    transactions
+                  </li>
+                  <li>
+                    Established coding standards and best practices, reducing
+                    system issues by 40%
+                  </li>
+                  <li>
+                    Created integrations between NetSuite and third-party HR
+                    vendor systems
+                  </li>
+                  <li>
+                    Provided comprehensive audit support ensuring compliance and
+                    security
+                  </li>
+                  <li>
+                    Developed custom SuiteQL financial reports for specific
+                    business requirements
+                  </li>
+                </ul>
+              </div>
+
+              <div class="job">
+                <div class="job-header">
+                  <div class="job-title">
+                    Oracle NetSuite Engineer, Senior Associate
+                  </div>
+                  <div class="job-company">
+                    Pomelo Fashion
+                    <a
+                      href="https://www.pomelofashion.com"
+                      class="company-website"
+                      target="_blank"
+                      ><i class="fas fa-external-link-alt"></i
+                    ></a>
+                  </div>
+                  <div class="job-period">
+                    <i class="far fa-calendar-alt"></i> May 2022 - Jan 2023 |
+                    Bangkok, Thailand
+                  </div>
+                </div>
+                <ul class="job-details">
+                  <li>
+                    Expertise in converting SuiteScript 1.0 to SuiteScript 2.1
+                    for improved functionality
+                  </li>
+                  <li>
+                    Upgrading RESTful API to leverage the latest features for
+                    many integrations
+                  </li>
+                  <li>
+                    Implementing GitHub CI/CD with SuiteCloud CLI for efficient
+                    development and deployment
+                  </li>
+                  <li>
+                    Integration of NetSuite unit testing and CodeClimate for
+                    code quality assurance
+                  </li>
+                  <li>
+                    Capable of handling internal projects, ensuring successful
+                    implementation and delivery
+                  </li>
+                </ul>
+              </div>
+
+              <div class="job">
+                <div class="job-header">
+                  <div class="job-title">Information Technology Specialist</div>
+                  <div class="job-company">K.M. Packaging Co., Ltd</div>
+                  <div class="job-period">
+                    <i class="far fa-calendar-alt"></i> Apr 2018 - Apr 2022 |
+                    Bangkok, Thailand
+                  </div>
+                </div>
+                <ul class="job-details">
+                  <li>
+                    Configuration, design, development, implementation, and
+                    maintenance of modules and projects with a focus on ERP
+                    systems
+                  </li>
+                  <li>
+                    Expertise in creating and deploying JavaScript code using
+                    SuiteScript 1.0 and SuiteScript 2.0 APIs
+                  </li>
+                  <li>
+                    Creation of document templates using HTML, CSS, Freemarker,
+                    BFO, and XML
+                  </li>
+                  <li>
+                    Building custom user interfaces using Suitelet Script with
+                    popular frameworks
+                  </li>
+                  <li>
+                    Investigating and implementing integration methods for
+                    third-party systems
+                  </li>
+                </ul>
+              </div>
+
+              <div class="job">
+                <div class="job-header">
+                  <div class="job-title">
+                    Oracle NetSuite Developer (Remote)
+                  </div>
+                  <div class="job-company">Heritage Ceramics Pte Ltd</div>
+                  <div class="job-period">
+                    <i class="far fa-calendar-alt"></i> May 2021 - Jul 2022 |
+                    Singapore
+                  </div>
+                </div>
+                <ul class="job-details">
+                  <li>
+                    Created customized applications tailored to meet specific
+                    business needs
+                  </li>
+                  <li>
+                    Played a key role in the development of NetSuite One World
+                    implementation
+                  </li>
+                  <li>
+                    Designed and implemented more streamlined workflow
+                    procedures
+                  </li>
+                  <li>
+                    Conducted rapid prototyping of new features to validate
+                    their feasibility
+                  </li>
+                </ul>
+              </div>
+
+              <div class="job">
+                <div class="job-header">
+                  <div class="job-title">Junior IT Manager</div>
+                  <div class="job-company">Rainbow Bridge Company</div>
+                  <div class="job-period">
+                    <i class="far fa-calendar-alt"></i> May 2015 - Apr 2018 |
+                    Yangon, Myanmar
+                  </div>
+                </div>
+                <ul class="job-details">
+                  <li>
+                    Monitoring and configuring Tablet Sales app and Odoo ERP
+                    system
+                  </li>
+                  <li>
+                    Setting up sales modules for various products, promotions,
+                    and price lists
+                  </li>
+                  <li>Maintaining VPN system for HQ network connectivity</li>
+                  <li>
+                    Creating security rules, user authentication, and groups
+                  </li>
+                  <li>
+                    Collecting GEO location data and creating a National Sales
+                    Coverage map using ArcGIS
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- Certifications -->
+          <div class="card animate-slide-up" style="animation-delay: 300ms">
+            <div class="section-header">
+              <div class="section-icon"><i class="fas fa-certificate"></i></div>
+              <h2>Certifications</h2>
+            </div>
+            <div class="certifications">
+              <div class="cert-item">
+                <div class="cert-icon"><i class="fas fa-award"></i></div>
+                <div class="cert-details">
+                  <div class="cert-name">NetSuite Certified ERP Consultant</div>
+                  <div class="cert-issuer">Oracle</div>
+                  <div class="cert-meta">
+                    <div class="cert-date">Issued: Feb 2022</div>
+                    <a
+                      href="https://mylearn.oracle.com/ou/verification"
+                      class="cert-verify"
+                      target="_blank"
+                      >Verify</a
+                    >
+                  </div>
+                </div>
+              </div>
+              <div class="cert-item">
+                <div class="cert-icon"><i class="fas fa-award"></i></div>
+                <div class="cert-details">
+                  <div class="cert-name">
+                    NetSuite Certified SuiteFoundation
+                  </div>
+                  <div class="cert-issuer">Oracle</div>
+                  <div class="cert-meta">
+                    <div class="cert-date">Issued: Dec 2021</div>
+                    <a
+                      href="https://mylearn.oracle.com/ou/verification"
+                      class="cert-verify"
+                      target="_blank"
+                      >Verify</a
+                    >
+                  </div>
+                </div>
+              </div>
+              <div class="cert-item">
+                <div class="cert-icon">
+                  <i class="fas fa-network-wired"></i>
+                </div>
+                <div class="cert-details">
+                  <div class="cert-name">ITPE (IP) #THIP20A0037</div>
+                  <div class="cert-issuer">
+                    Information Technology Professionals Examination
+                  </div>
+                </div>
+              </div>
+              <div class="cert-item">
+                <div class="cert-icon">
+                  <i class="fas fa-network-wired"></i>
+                </div>
+                <div class="cert-details">
+                  <div class="cert-name">CCNA #426019391169DNXJ</div>
+                  <div class="cert-issuer">Cisco</div>
+                </div>
+              </div>
+              <div class="cert-item">
+                <div class="cert-icon"><i class="fab fa-linux"></i></div>
+                <div class="cert-details">
+                  <div class="cert-name">CompTIA Linux+/ LPIC1</div>
+                  <div class="cert-issuer">CompTIA</div>
+                </div>
+              </div>
+              <div class="cert-item">
+                <div class="cert-icon"><i class="fab fa-suse"></i></div>
+                <div class="cert-details">
+                  <div class="cert-name">SUSE Certified Linux Admin</div>
+                  <div class="cert-issuer">SUSE</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- References Section -->
+          <div class="card animate-slide-up" style="animation-delay: 400ms">
+            <div class="section-header">
+              <div class="section-icon">
+                <i class="fas fa-address-book"></i>
+              </div>
+              <h2>References</h2>
+            </div>
+            <div class="references">
+              <div class="reference">
+                <div class="reference-name">Kua Soon Kuan</div>
+                <div class="reference-position">IT Manager</div>
+                <div class="reference-company">Nera Telecommunications</div>
+                <div class="reference-contact">
+                  <i class="fas fa-phone-alt"></i>+65 9648 9692
+                </div>
+                <div class="reference-contact">
+                  <i class="fas fa-envelope"></i>sua.kaan@nera.net
+                </div>
+              </div>
+
+              <div class="reference">
+                <div class="reference-name">Yutthana Nildam</div>
+                <div class="reference-position">IT Supervisor, Head</div>
+                <div class="reference-company">
+                  KM Packaging Co.Ltd, Bangkok
+                </div>
+                <div class="reference-contact">
+                  <i class="fas fa-phone-alt"></i>+66 94-936-4989
+                </div>
+                <div class="reference-contact">
+                  <i class="fas fa-envelope"></i>yutthana_n@kmp.co.th
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column - Skills, Education, etc. -->
+        <div class="sidebar">
+          <!-- Skills Section -->
+          <div class="card animate-slide-up" style="animation-delay: 150ms">
+            <div class="section-header">
+              <div class="section-icon"><i class="fas fa-tools"></i></div>
+              <h2>Skills</h2>
+            </div>
+
+            <div class="skills-container">
+              <div class="skill-category">
+                <div class="skill-title">
+                  <i class="fas fa-laptop-code"></i>NetSuite Platform
+                </div>
+                <div class="skill-tags">
+                  <span class="skill-tag">SuiteScript 1.0/2.0</span>
+                  <span class="skill-tag">SuiteQL</span>
+                  <span class="skill-tag">SuiteFlow</span>
+                  <span class="skill-tag">SuiteBuilder</span>
+                  <span class="skill-tag">SuiteAnalytics</span>
+                  <span class="skill-tag">Workflows</span>
+                  <span class="skill-tag">SuiteTalk API</span>
+                  <span class="skill-tag">SuiteCloud</span>
+                  <span class="skill-tag">SuiteGL</span>
+                  <span class="skill-tag">CSV Import</span>
+                  <span class="skill-tag">Bundle Installation</span>
+                </div>
+              </div>
+
+              <div class="skill-category">
+                <div class="skill-title">
+                  <i class="fas fa-code"></i>Programming
+                </div>
+                <div class="skill-tags">
+                  <span class="skill-tag">JavaScript</span>
+                  <span class="skill-tag">TypeScript</span>
+                  <span class="skill-tag">JSON</span>
+                  <span class="skill-tag">HTML/CSS</span>
+                  <span class="skill-tag">SQL</span>
+                  <span class="skill-tag">REST APIs</span>
+                  <span class="skill-tag">SOAP</span>
+                  <span class="skill-tag">XML</span>
+                  <span class="skill-tag">Freemarker</span>
+                  <span class="skill-tag">Node.js</span>
+                </div>
+              </div>
+
+              <div class="skill-category">
+                <div class="skill-title">
+                  <i class="fas fa-tools"></i>Development Tools
+                </div>
+                <div class="skill-tags">
+                  <span class="skill-tag">VS Code</span>
+                  <span class="skill-tag">SuiteCloud IDE</span>
+                  <span class="skill-tag">SDF CLI</span>
+                  <span class="skill-tag">Git</span>
+                  <span class="skill-tag">GitHub Actions</span>
+                  <span class="skill-tag">Postman</span>
+                  <span class="skill-tag">Chrome DevTools</span>
+                </div>
+              </div>
+
+              <div class="skill-category">
+                <div class="skill-title">
+                  <i class="fas fa-tasks"></i>Admin Functions
+                </div>
+                <div class="skill-tags">
+                  <span class="skill-tag">User Management</span>
+                  <span class="skill-tag">Role-Based Access</span>
+                  <span class="skill-tag">Data Migration</span>
+                  <span class="skill-tag">Custom Form Creation</span>
+                  <span class="skill-tag">Saved Searches</span>
+                  <span class="skill-tag">System Notes</span>
+                  <span class="skill-tag">Audit Trails</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Skill Proficiency Bars -->
+            <div class="skill-bar-container">
+              <div class="skill-bar">
+                <div class="skill-name">SuiteScript</div>
+                <div class="progress-bar">
+                  <div class="progress" style="width: 95%"></div>
+                </div>
+                <div class="skill-level">95%</div>
+              </div>
+              <div class="skill-bar">
+                <div class="skill-name">NetSuite Admin</div>
+                <div class="progress-bar">
+                  <div class="progress" style="width: 90%"></div>
+                </div>
+                <div class="skill-level">90%</div>
+              </div>
+              <div class="skill-bar">
+                <div class="skill-name">JavaScript</div>
+                <div class="progress-bar">
+                  <div class="progress" style="width: 92%"></div>
+                </div>
+                <div class="skill-level">92%</div>
+              </div>
+              <div class="skill-bar">
+                <div class="skill-name">REST APIs</div>
+                <div class="progress-bar">
+                  <div class="progress" style="width: 85%"></div>
+                </div>
+                <div class="skill-level">85%</div>
+              </div>
+              <div class="skill-bar">
+                <div class="skill-name">HTML/CSS</div>
+                <div class="progress-bar">
+                  <div class="progress" style="width: 88%"></div>
+                </div>
+                <div class="skill-level">88%</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Education Section -->
+          <div class="card animate-slide-up" style="animation-delay: 250ms">
+            <div class="section-header">
+              <div class="section-icon">
+                <i class="fas fa-graduation-cap"></i>
+              </div>
+              <h2>Education</h2>
+            </div>
+
+            <div class="education-item">
+              <div class="education-title">The University of Yangon</div>
+              <div class="education-degree">M.Sc. Computer Science</div>
+              <div class="education-period">2019-2021 (online)</div>
+            </div>
+
+            <div class="education-item">
+              <div class="education-title">The University of Yangon</div>
+              <div class="education-degree">
+                Post Graduate Dip. in Computer Application
+              </div>
+              <div class="education-period">2013-2014</div>
+            </div>
+
+            <div class="education-item">
+              <div class="education-title">Myeik University</div>
+              <div class="education-degree">Bachelor's Degree, Physics</div>
+              <div class="education-period">2009-2012</div>
+            </div>
+          </div>
+
+          <!-- Languages Section -->
+          <div class="card animate-slide-up" style="animation-delay: 350ms">
+            <div class="section-header">
+              <div class="section-icon"><i class="fas fa-language"></i></div>
+              <h2>Languages</h2>
+            </div>
+            <div class="language-section">
+              <div class="lang-item">
+                <div class="lang-name">
+                  <span><span class="language-flag">🇬🇧</span> English</span>
+                  <span class="lang-level">Intermediate</span>
+                </div>
+                <div class="progress-bar">
+                  <div class="progress" style="width: 75%"></div>
+                </div>
+              </div>
+              <div class="lang-item">
+                <div class="lang-name">
+                  <span><span class="language-flag">🇹🇭</span> Thai</span>
+                  <span class="lang-level">Intermediate</span>
+                </div>
+                <div class="progress-bar">
+                  <div class="progress" style="width: 70%"></div>
+                </div>
+              </div>
+              <div class="lang-item">
+                <div class="lang-name">
+                  <span><span class="language-flag">🇲🇲</span> Burmese</span>
+                  <span class="lang-level">Native</span>
+                </div>
+                <div class="progress-bar">
+                  <div class="progress" style="width: 100%"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Social Section -->
+          <div class="card animate-slide-up" style="animation-delay: 450ms">
+            <div class="section-header">
+              <div class="section-icon"><i class="fas fa-globe"></i></div>
+              <h2>Connect</h2>
+            </div>
+            <div class="social-links">
+              <a
+                href="https://github.com/minmyatoo"
+                class="social-link"
+                target="_blank"
+              >
+                <i class="fab fa-github"></i> GitHub
+              </a>
+              <a
+                href="https://linkedin.com/in/minmyatoo"
+                class="social-link"
+                target="_blank"
+              >
+                <i class="fab fa-linkedin"></i> LinkedIn
+              </a>
+            </div>
+          </div>
+
+          <!-- Interests Section -->
+          <div class="card animate-slide-up" style="animation-delay: 550ms">
+            <div class="section-header">
+              <div class="section-icon"><i class="fas fa-heart"></i></div>
+              <h2>Interests</h2>
+            </div>
+            <div class="interests">
+              <div class="interest-item">
+                <div class="interest-icon"><i class="fas fa-plane"></i></div>
+                <div class="interest-name">Travelling</div>
+              </div>
+              <div class="interest-item">
+                <div class="interest-icon"><i class="fas fa-bicycle"></i></div>
+                <div class="interest-name">Cycling</div>
+              </div>
+              <div class="interest-item">
+                <div class="interest-icon">
+                  <i class="fas fa-laptop-code"></i>
+                </div>
+                <div class="interest-name">Coding</div>
+              </div>
+              <div class="interest-item">
+                <div class="interest-icon"><i class="fas fa-book"></i></div>
+                <div class="interest-name">Reading</div>
+              </div>
+              <div class="interest-item">
+                <div class="interest-icon"><i class="fas fa-music"></i></div>
+                <div class="interest-name">Music</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- QR Code Modal -->
+    <div id="qrModal" class="modal">
+      <div class="modal-content">
+        <span class="close-modal">&times;</span>
+        <h3>Scan to view on mobile</h3>
+        <div id="qrcode"></div>
+        <p class="modal-text">
+          Scan this QR code with your smartphone to view this resume on your
+          mobile device.
+        </p>
+      </div>
+    </div>
+
+    <!-- Feature Buttons -->
+    <div class="feature-buttons">
+      <div class="feature-button" id="darkModeToggle" title="Toggle Dark Mode">
+        <i class="fas fa-moon"></i>
+      </div>
+
+      <div class="feature-button" id="qrCodeButton" title="View QR Code">
+        <i class="fas fa-qrcode"></i>
+      </div>
+
+      <div class="feature-button" id="downloadPdfButton" title="Download PDF">
+        <i class="fas fa-file-pdf"></i>
+      </div>
+
+      <div class="feature-button" id="shareButton" title="Share Resume">
+        <i class="fas fa-share-alt"></i>
+      </div>
+
+      <div class="feature-button" id="backToTop" title="Back to Top">
+        <i class="fas fa-arrow-up"></i>
+      </div>
+    </div>
+
+    <!-- Share Menu -->
+    <div class="share-menu" id="shareMenu">
+      <div class="share-option" data-platform="linkedin">
+        <i class="fab fa-linkedin"></i> LinkedIn
+      </div>
+      <div class="share-option" data-platform="email">
+        <i class="fas fa-envelope"></i> Email
+      </div>
+      <div class="share-option" data-platform="whatsapp">
+        <i class="fab fa-whatsapp"></i> WhatsApp
+      </div>
+      <div class="share-option" data-platform="copy">
+        <i class="fas fa-copy"></i> Copy Link
+      </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast"></div>
+
+    <!-- Version indicator -->
+    <div class="version-indicator">v2.0 | Last updated: May 2025</div>
+
+    <script>
+      // Intersection Observer for Animation
+      document.addEventListener("DOMContentLoaded", function () {
+        // Animate elements on scroll
+        const animatedElements = document.querySelectorAll(".animate-slide-up");
+
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.style.animationPlayState = "running";
+                observer.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.1 }
+        );
+
+        animatedElements.forEach((element) => {
+          element.style.animationPlayState = "paused";
+          observer.observe(element);
+        });
+
+        // Back to top button
+        const backToTopButton = document.getElementById("backToTop");
+
+        window.addEventListener("scroll", () => {
+          if (window.scrollY > 300) {
+            backToTopButton.classList.add("visible");
+          } else {
+            backToTopButton.classList.remove("visible");
+          }
+        });
+
+        backToTopButton.addEventListener("click", () => {
+          window.scrollTo({
+            top: 0,
+            behavior: "smooth",
+          });
+        });
+
+        // Dark mode toggle functionality
+        const darkModeToggle = document.getElementById("darkModeToggle");
+        const root = document.documentElement;
+
+        darkModeToggle.addEventListener("click", () => {
+          document.body.classList.toggle("dark-mode");
+
+          if (document.body.classList.contains("dark-mode")) {
+            darkModeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+
+            // Update CSS variables for dark mode
+            root.style.setProperty("--card-bg", "#1e293b");
+            root.style.setProperty("--section-bg", "#0f172a");
+            root.style.setProperty("--text", "#e2e8f0");
+            root.style.setProperty("--text-light", "#94a3b8");
+            root.style.setProperty("--dark", "#f8fafc");
+            root.style.setProperty("--light", "#1e293b");
+            root.style.setProperty("--border", "#334155");
+
+            showToast("Dark mode enabled");
+          } else {
+            darkModeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+
+            // Reset CSS variables to light mode
+            root.style.setProperty("--card-bg", "#ffffff");
+            root.style.setProperty("--section-bg", "#f4f9f4");
+            root.style.setProperty("--text", "#333e48");
+            root.style.setProperty("--text-light", "#718096");
+            root.style.setProperty("--dark", "#1e293b");
+            root.style.setProperty("--light", "#f8fafc");
+            root.style.setProperty("--border", "#e2e8f0");
+
+            showToast("Light mode enabled");
+          }
+        });
+
+        // QR Code Modal
+        const qrModal = document.getElementById("qrModal");
+        const qrCodeButton = document.getElementById("qrCodeButton");
+        const closeModal = document.querySelector(".close-modal");
+
+        qrCodeButton.addEventListener("click", () => {
+          // Generate QR code for current URL
+          const qrCodeContainer = document.getElementById("qrcode");
+          qrCodeContainer.innerHTML = "";
+
+          new QRCode(qrCodeContainer, {
+            text: window.location.href,
+            width: 200,
+            height: 200,
+            colorDark: "#3949AB",
+            colorLight: "#ffffff",
+            correctLevel: QRCode.CorrectLevel.H,
+          });
+
+          qrModal.classList.add("show");
+        });
+
+        closeModal.addEventListener("click", () => {
+          qrModal.classList.remove("show");
+        });
+
+        window.addEventListener("click", (e) => {
+          if (e.target === qrModal) {
+            qrModal.classList.remove("show");
+          }
+        });
+
+        // PDF Download Functionality
+        const downloadPdfButton = document.getElementById("downloadPdfButton");
+
+        downloadPdfButton.addEventListener("click", () => {
+          // Show loading notification
+          showToast('<div class="loading-spinner"></div> Generating PDF...', 0);
+
+          // Wait a moment for the toast to appear before generating PDF
+          setTimeout(() => {
+            // Hide floating buttons during PDF generation
+            document.querySelector(".feature-buttons").style.display = "none";
+            document.querySelector(".version-indicator").style.display = "none";
+
+            const element = document.body;
+            const options = {
+              margin: 10,
+              filename: "Min_Myat_Oo_Resume.pdf",
+              image: { type: "jpeg", quality: 0.98 },
+              html2canvas: { scale: 2, useCORS: true },
+              jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
+            };
+
+            html2pdf()
+              .set(options)
+              .from(element)
+              .save()
+              .then(() => {
+                // Show success notification
+                document.querySelector(".feature-buttons").style.display =
+                  "flex";
+                document.querySelector(".version-indicator").style.display =
+                  "block";
+                showToast("PDF downloaded successfully!");
+              });
+          }, 300);
+        });
+
+        // Share Functionality
+        const shareButton = document.getElementById("shareButton");
+        const shareMenu = document.getElementById("shareMenu");
+
+        shareButton.addEventListener("click", () => {
+          shareMenu.classList.toggle("visible");
+        });
+
+        document.addEventListener("click", (e) => {
+          if (
+            !shareButton.contains(e.target) &&
+            !shareMenu.contains(e.target)
+          ) {
+            shareMenu.classList.remove("visible");
+          }
+        });
+
+        // Share Options
+        const shareOptions = document.querySelectorAll(".share-option");
+
+        shareOptions.forEach((option) => {
+          option.addEventListener("click", () => {
+            const platform = option.getAttribute("data-platform");
+            const url = encodeURIComponent(window.location.href);
+            const title = encodeURIComponent(
+              "Min Myat Oo - NetSuite Developer Resume"
+            );
+
+            let shareUrl = "";
+
+            switch (platform) {
+              case "linkedin":
+                shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${url}`;
+                break;
+              case "email":
+                shareUrl = `mailto:?subject=${title}&body=${url}`;
+                break;
+              case "whatsapp":
+                shareUrl = `https://wa.me/?text=${title}%20-%20${url}`;
+                break;
+              case "copy":
+                navigator.clipboard.writeText(window.location.href).then(() => {
+                  showToast("Link copied to clipboard!");
+                });
+                shareMenu.classList.remove("visible");
+                return;
+            }
+
+            if (shareUrl) {
+              window.open(shareUrl, "_blank");
+              shareMenu.classList.remove("visible");
+            }
+          });
+        });
+
+        // Toast Notification Function
+        function showToast(message, duration = 3000) {
+          const toast = document.getElementById("toast");
+          toast.innerHTML = message;
+          toast.classList.add("show");
+
+          if (duration > 0) {
+            setTimeout(() => {
+              toast.classList.remove("show");
+            }, duration);
+          }
+        }
+
+        // Print functionality
+        document.addEventListener("keydown", function (e) {
+          // Ctrl+P or Command+P
+          if ((e.ctrlKey || e.metaKey) && e.key === "p") {
+            window.print();
+            e.preventDefault();
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
